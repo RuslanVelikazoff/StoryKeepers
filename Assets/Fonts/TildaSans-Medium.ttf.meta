@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: d15d8205b84d94e9999593e0d0296069
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Tilda Sans
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: a009d7e8baafc488380df963dd411770, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
