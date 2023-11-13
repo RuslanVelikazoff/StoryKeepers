@@ -18,6 +18,18 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Button settingsButton;
 
+    [Header("Settings panel")]
+    [SerializeField]
+    private GameObject settingsPanel;
+    [SerializeField]
+    private Button soundButton;
+    [SerializeField]
+    private Button musicButton;
+    [SerializeField]
+    private Sprite onSprite;
+    [SerializeField]
+    private Sprite offSprite;
+
     [Header("Exit panel")]
     [SerializeField]
     private GameObject exitPanel;
@@ -34,12 +46,17 @@ public class UIManager : MonoBehaviour
 
         exitPanel.SetActive(false);
 
+        SetSprites();
+
         UpPanelButtonsAction();
         BottomPanelButtonsAction();
+        SettingsPanelButtonsAction();
         ExitPanelButtonsAction();
 
         Debug.Log("UIManager initialized");
     }
+
+    #region UpPanel
 
     private void UpPanelButtonsAction()
     {
@@ -62,6 +79,10 @@ public class UIManager : MonoBehaviour
             });
         }
     }
+
+    #endregion
+
+    #region BottomPanel
 
     private void BottomPanelButtonsAction()
     {
@@ -86,10 +107,78 @@ public class UIManager : MonoBehaviour
             settingsButton.onClick.RemoveAllListeners();
             settingsButton.onClick.AddListener(() =>
             {
-                //TODO: open settings
+                animations.OpenSettingsPanel(settingsPanel);
             });
         }
     }
+
+    #endregion
+
+    #region SettingsPanel
+
+    private void SettingsPanelButtonsAction()
+    {
+        if (musicButton != null)
+        {
+            musicButton.onClick.RemoveAllListeners();
+            musicButton.onClick.AddListener(() =>
+            {
+                if (PlayerPrefs.GetFloat("MusicVolume") == 1f)
+                {
+                    AudioManager.instance.OffMusic();
+                }
+                else
+                {
+                    AudioManager.instance.OnMusic();
+                }
+
+                SetSprites();
+            });
+        }
+
+        if (soundButton != null)
+        {
+            soundButton.onClick.RemoveAllListeners();
+            soundButton.onClick.AddListener(() =>
+            {
+                if (PlayerPrefs.GetFloat("SoundVolume") == 1f)
+                {
+                    AudioManager.instance.OffSound();
+                }
+                else
+                {
+                    AudioManager.instance.OnSound();
+                }
+
+                SetSprites();
+            });
+        }
+    }
+
+    private void SetSprites()
+    {
+        if (PlayerPrefs.GetFloat("MusicVolume") == 1f)
+        {
+            musicButton.GetComponent<Image>().sprite = onSprite;
+        }
+        else if (PlayerPrefs.GetFloat("MusicVolume") == 0f)
+        {
+            musicButton.GetComponent<Image>().sprite = offSprite;
+        }
+
+        if (PlayerPrefs.GetFloat("SoundVolume") == 1f)
+        {
+            soundButton.GetComponent<Image>().sprite = onSprite;
+        }
+        else if (PlayerPrefs.GetFloat("SoundVolume") == 0f)
+        {
+            soundButton.GetComponent<Image>().sprite = offSprite;
+        }
+    }
+
+    #endregion
+
+    #region ExitPanel
 
     private void ExitPanelButtonsAction()
     {
@@ -111,4 +200,6 @@ public class UIManager : MonoBehaviour
             });
         }
     }
+
+    #endregion
 }
